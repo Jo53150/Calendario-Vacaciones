@@ -1,0 +1,8 @@
+usuario = ["usuario1", "usuario2", "usuario3", "usuario4", "usuario5"]
+password = ["12345", "123456", "12345", "1234567", "54321"]
+nombre = ["nombre1","nombre2","nombre3","nombre4","nombre5"]
+empresa = ["empresa1","empresa2","empresa3","empresa4","empresa5"]
+departamento = ["departamento1","departamento2","departamento3","departamento4","departamento5"]
+dias_vacaciones = [20, 22, 30, 10, 5]
+dias_fiestas_locales = [2, 2, 2, 2, 2]
+dias_otros_motivos = [10, 15, 15, 15, 15]
