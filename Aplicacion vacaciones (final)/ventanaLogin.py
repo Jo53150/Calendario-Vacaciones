@@ -1,14 +1,14 @@
 import sys
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, 
-    QPushButton, QLineEdit, QMessageBox, QAction
+    QPushButton, QLineEdit, QMessageBox
 )
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 import mysql.connector
 from mysql.connector import Error
-import ventanaCalendario
 import ventana_admin
+import ventanaMenu
 
 class VentanaPython(QMainWindow):
     def __init__(self): 
@@ -89,7 +89,7 @@ class VentanaPython(QMainWindow):
             if resultado:
                 nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos = resultado
                 self.mostrar_mensaje_exito()
-                self.abrirVentanaC(nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos)
+                self.abrirVentanaMenu(nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos)
             else:
                 self.mostrar_mensaje_error()
 
@@ -104,16 +104,15 @@ class VentanaPython(QMainWindow):
     def mostrar_mensaje_error(self):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
-        msg.setText("Usuario o contraseña incorrectos")
+        msg.setText("Usuario o contraseña incorrectos")  
         msg.setWindowTitle("Error")
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
-    def abrirVentanaC(self, nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos):
-        self.objeto_ventanaC = ventanaCalendario.CalendarWindow(nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos)
-        self.objeto_ventanaC.show()
+    def abrirVentanaMenu(self, nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos):
+        self.objeto_ventana_menu = ventanaMenu.MainWindow(nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos)
+        self.objeto_ventana_menu.show()
 
-    
     def abrirVentanaAdmin(self):
         self.objeto_ventana_admin = ventana_admin.VentanaAdmin()
         self.objeto_ventana_admin.show()    

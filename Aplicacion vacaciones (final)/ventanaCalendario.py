@@ -1,8 +1,8 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QCalendarWidget, QPushButton, QLineEdit, QMessageBox, QComboBox
-from PyQt5.QtGui import QFont, QTextCharFormat, QColor
-from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QCalendarWidget, QPushButton, QLineEdit, QMessageBox, QComboBox
+from PyQt5.QtGui import QTextCharFormat, QColor
+from PyQt5.QtCore import QDate, Qt
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -104,15 +104,22 @@ class CalendarWindow(QMainWindow):
         self.fiestas_locales = []
         self.otros_motivos = []
 
+        self.marcarFeriados()
+        self.marcarInterno()
+
     def mark_date(self, date):
         category = self.category_combo.currentText()
+        if date in feriados or date in libre_interno or date.dayOfWeek() in (Qt.Saturday, Qt.Sunday):
+            QMessageBox.warning(self, "Error", "No se pueden marcar días festivos, libres internos o fines de semana.")
+            return
+
         if category == "Vacaciones":
             if date not in dias_vacaciones and len(dias_vacaciones) < self.dias_vacaciones_disponibles:
                 dias_vacaciones.append(date)
                 self.mark_date_in_calendar(date, QColor("lightgreen"))
             elif date in dias_vacaciones:
                 dias_vacaciones.remove(date)
-                self.mark_date_in_calendar(date, QColor("white"))
+                self.mark_date_in_calendar(date, QColor("white"))   
         elif category == "Fiestas Locales":
             if date not in dias_fiestas_locales and len(dias_fiestas_locales) < self.dias_fiestas_locales_disponibles:
                 dias_fiestas_locales.append(date)
@@ -133,6 +140,19 @@ class CalendarWindow(QMainWindow):
         format.setBackground(color)
         self.calendar.setDateTextFormat(date, format)
 
+    def marcarFeriados(self):
+        format = QTextCharFormat()
+        format.setBackground(QColor("darkRed"))
+        for date in feriados:
+            self.calendar.setDateTextFormat(date, format)
+
+
+    def marcarInterno(self):
+        format = QTextCharFormat()
+        format.setBackground(QColor("green"))
+        for date in libre_interno:
+            self.calendar.setDateTextFormat(date, format)    
+
     def generate_calendar(self):
         nombre = self.name_input.text()
         empresa = self.company_input.text()
@@ -147,9 +167,9 @@ class CalendarWindow(QMainWindow):
         QMessageBox.information(self, "Éxito", "Calendario generado exitosamente.")
 
     def send_calendar_email(self):
-        recipient_email = "josexz4321@gmail.com"   #Correo que recibe el mensaje  
-        sender_email = "joseantoniomg06@gmail.com"   #Correo que con el mensaje  
-        sender_password = "fmcs aice crhe lbzv"   #Contraseña del correo enviante 
+        recipient_email = "correo@mail.com"   #Correo que recibe el mensaje  
+        sender_email = "correo@mail.com"   #Correo que envia el mensaje  
+        sender_password = "contraseña"   #Contraseña del correo enviante 
 
         subject = "Calendario de Vacaciones"
         body = "Adjunto encontrarás el calendario de vacaciones."
@@ -163,6 +183,6 @@ class CalendarWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = CalendarWindow("Prueba", "Prueba", "Prueba", 10, 2, 5)
+    window = CalendarWindow("Prueba", "Prueba", "Prueba", 10, 2, 5) # Ejemplo de valores
     window.show()
     sys.exit(app.exec_())
