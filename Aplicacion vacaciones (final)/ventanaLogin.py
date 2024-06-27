@@ -81,9 +81,10 @@ class VentanaPython(QMainWindow):
             self.mostrar_mensaje_exito()
             self.abrirVentanaAdmin()
         else:
-            consulta = "SELECT nombre, empresa, departamento, dias_vacaciones, dias_fiestas, dias_otros FROM usuarios WHERE usuario = %s AND password = %s"
+            query = """SELECT nombre, empresa, departamento, dias_vacaciones, dias_fiestas, 
+                     dias_otros FROM usuarios WHERE usuario = %s AND password = %s"""
             valores = (usuario, contraseña)
-            self.cursor.execute(consulta, valores)
+            self.cursor.execute(query, valores)
             resultado = self.cursor.fetchone()
 
             if resultado:
@@ -110,7 +111,8 @@ class VentanaPython(QMainWindow):
         msg.exec_()
 
     def abrirVentanaMenu(self, nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos):
-        self.objeto_ventana_menu = ventanaMenu.MainWindow(nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, dias_otros_motivos)
+        self.objeto_ventana_menu = ventanaMenu.MainWindow(nombre, empresa, departamento, dias_vacaciones, dias_fiestas_locales, 
+                                                          dias_otros_motivos)
         self.objeto_ventana_menu.show()
 
     def abrirVentanaAdmin(self):

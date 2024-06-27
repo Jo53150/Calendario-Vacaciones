@@ -17,6 +17,7 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.setWindowTitle("Menú")
         self.setGeometry(100, 100, 300, 200)
+        self.setFixedSize(300, 200)
 
         # Crear un widget central y un layout vertical
         central_widget = QWidget()
@@ -58,6 +59,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = MainWindow("nombre", "empresa", "departamento", 10, 5, 3)  # Ejemplo de valores
+    window = MainWindow("nombre", "empresa", "departamento", 10, 5, 3)  # Ejemplo de valores/Sirve para iniciar la ventana sin pasar por el login
     window.show()
     sys.exit(app.exec_())

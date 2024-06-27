@@ -7,7 +7,8 @@ import calendar
 
 def draw_month(canvas, year, month, start_x, start_y, month_width, month_height, marked_days, fiestas_locales, otros_motivos):
     cal = calendar.Calendar(firstweekday=0)
-    month_names_es = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    month_names_es = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 
+                      'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
     month_name = month_names_es[month - 1]
     month_days = list(cal.itermonthdays(year, month))
     feriados = [(25, 12), (12, 10), (1, 11), (6, 12), (15, 8), (25, 7), (1, 1), (6,1), (28, 3), (29, 3), (1, 5), (2, 5)]

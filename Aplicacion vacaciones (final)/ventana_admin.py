@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QPushButton, QMessageBox, QLineEdit, QLabel, QDialog
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QTableWidget, QTableWidgetItem, 
+                             QVBoxLayout, QWidget, QPushButton, QMessageBox, QLineEdit, QLabel, QDialog)
 from PyQt5.QtCore import Qt
 import mysql.connector
 from mysql.connector import Error
@@ -14,7 +15,8 @@ class VentanaAdmin(QMainWindow):
         # Crear tabla para mostrar datos
         self.table = QTableWidget()
         self.table.setColumnCount(9)  # Número de columnas
-        self.table.setHorizontalHeaderLabels(["ID", "USUARIO", "PASSWORD", "Nombre", "Empresa", "Departamento", "Días Vacaciones", "Días Fiestas", "Días Otros Motivos"])
+        self.table.setHorizontalHeaderLabels(["ID", "USUARIO", "PASSWORD", "Nombre", "Empresa", 
+                                              "Departamento", "Días Vacaciones", "Días Fiestas", "Días Otros Motivos"])
 
         # Botones para agregar, eliminar y modificar usuarios
         self.agregar_button = QPushButton("Agregar Usuario")
@@ -106,7 +108,8 @@ class VentanaAdmin(QMainWindow):
             )
             if conexion.is_connected():
                 cursor = conexion.cursor()
-                cursor.execute("SELECT id, usuario, password, nombre, empresa, departamento, dias_vacaciones, dias_fiestas, dias_otros FROM usuarios")
+                cursor.execute("""SELECT id, usuario, password, nombre, empresa, departamento, 
+                               dias_vacaciones, dias_fiestas, dias_otros FROM usuarios""")
                 rows = cursor.fetchall()
 
                 # Limpiar tabla antes de cargar nuevos datos
@@ -158,7 +161,8 @@ class VentanaAdmin(QMainWindow):
                     max_id = 0
                 nuevo_id = max_id + 1
                 
-                cursor.execute("INSERT INTO usuarios (id, usuario, password, nombre, empresa, departamento, dias_vacaciones, dias_fiestas, dias_otros) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                cursor.execute("""INSERT INTO usuarios (id, usuario, password, nombre, empresa, departamento, 
+                               dias_vacaciones, dias_fiestas, dias_otros) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                                (nuevo_id, *datos_usuario))
                 conexion.commit()
                 print("Usuario agregado correctamente.")

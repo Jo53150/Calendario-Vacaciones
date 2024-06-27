@@ -22,6 +22,7 @@ class EmailSenderWindow(QMainWindow):
     def initUI(self):
         self.setWindowTitle('Enviar y Descargar Archivos')
         self.setGeometry(100, 100, 600, 400)
+        self.setFixedSize(600, 400)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -126,7 +127,7 @@ class EmailSenderWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = EmailSenderWindow("Prueba", "Prueba", "Prueba") # Ejemplo de valores
+    window = EmailSenderWindow("Prueba", "Prueba", "Prueba") # Ejemplo de valores/Sirve para iniciar la ventana sin pasar por el login
     window.show()
     sys.exit(app.exec_())
  

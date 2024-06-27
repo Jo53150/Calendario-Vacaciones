@@ -1,6 +1,7 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QCalendarWidget, QPushButton, QLineEdit, QMessageBox, QComboBox
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QLabel, QCalendarWidget, 
+                             QPushButton, QLineEdit, QMessageBox, QComboBox)
 from PyQt5.QtGui import QTextCharFormat, QColor
 from PyQt5.QtCore import QDate, Qt
 import smtplib
@@ -11,8 +12,9 @@ from email import encoders
 from pdf import create_calendar
 
 # Definir los días festivos y libres internos
-feriados = [QDate(2024, 12, 25), QDate(2024, 10, 12), QDate(2024, 11, 1), QDate(2024, 12, 6), QDate(2024, 8, 15), QDate(2024, 7, 25)]
-libre_interno = [QDate(2024, 7, 26), QDate(2024, 12, 24), QDate(2024, 12, 31)]
+feriados = [QDate(2024, 12, 25), QDate(2024, 10, 12), QDate(2024, 11, 1), QDate(2024, 12, 6), QDate(2024, 8, 15), QDate(2024, 7, 25), 
+            QDate(2024, 1, 1), QDate(2024, 1, 6), QDate(2024, 3, 28), QDate(2024, 3 ,29), QDate(2024, 5, 1), QDate(2024, 5, 2)]
+libre_interno = [QDate(2024, 5 , 3), QDate(2024, 7, 26), QDate(2024, 12, 24), QDate(2024, 12, 31)]
 
 # Listas para almacenar las fechas seleccionadas
 dias_vacaciones = []
@@ -45,7 +47,8 @@ def send_email(subject, body, attachment_path, recipient_email, sender_email, se
         raise RuntimeError(f"No se pudo enviar el correo. Error: {e}")
 
 class CalendarWindow(QMainWindow):
-    def __init__(self, nombre, empresa, departamento, dias_vacaciones_disponibles, dias_fiestas_locales_disponibles, dias_otros_motivos_disponibles):
+    def __init__(self, nombre, empresa, departamento, dias_vacaciones_disponibles, dias_fiestas_locales_disponibles, 
+                 dias_otros_motivos_disponibles):
         super().__init__()
 
         self.nombre = nombre
@@ -183,6 +186,6 @@ class CalendarWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = CalendarWindow("Prueba", "Prueba", "Prueba", 10, 2, 5) # Ejemplo de valores
+    window = CalendarWindow("Prueba", "Prueba", "Prueba", 10, 2, 5) # Ejemplo de valores/Sirve para iniciar la ventana sin pasar por el login
     window.show()
     sys.exit(app.exec_())
